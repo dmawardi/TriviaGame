@@ -9,6 +9,7 @@ var option1 = $('#option-1');
 var option2 = $('#option-2');
 var option3 = $('#option-3');
 var option4 = $('#option-4');
+var questionText = $('#question');
 
 
 var questions = [{
@@ -17,6 +18,7 @@ var questions = [{
             a: 'honolulu',
             b: 'slavery',
             c: 'correct',
+            d: 'bahlul'
         },
         correctAnswer: 'c',
     },
@@ -26,6 +28,7 @@ var questions = [{
             a: 'honolulu',
             b: 'slavery',
             c: 'correct',
+            d: 'kullie'
         },
         correctAnswer: 'c',
     },
@@ -35,6 +38,7 @@ var questions = [{
             a: 'honolulu',
             b: 'slavery',
             c: 'correct',
+            d: 'bully'
         },
         correctAnswer: 'c',
     },
@@ -68,10 +72,12 @@ function questionTimer() {
 }
 
 function displayQuestion() {
-    option1.text(questions[0].answers[0]);
-    option2.text(questions[0].answers[0]);
-    option3.text(questions[0].answers[0]);
-    option4.text(questions[0].answers[0]);
+
+    questionText.text(questions[0].question)
+    option1.text(questions[0].answers['a']);
+    option2.text(questions[0].answers['b']);
+    option3.text(questions[0].answers['c']);
+    option4.text(questions[0].answers['d']);
 
 }
 
@@ -88,4 +94,6 @@ function displayQuestion() {
 // If countdown finishes, lose.
 
 console.log(questions[0]);
+
+displayQuestion();
 questionTimer();
