@@ -94,6 +94,13 @@ function displayQuestion(qIndex) {
     }
 }
 
+// Event handler for buttons within playArea id
+$('#playArea').on('click', 'button', function(){
+
+    console.log(this);
+
+});
+
 // Display start screen with start button
 
 // User presses start button to begin game
