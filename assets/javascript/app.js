@@ -2,6 +2,37 @@ var wins = 0;
 var losses = 0;
 countdownRunning = false;
 
+var questions = [
+    {
+        question: 'Question 1',
+        answers: {
+            a: 'honolulu',
+            b: 'slavery',
+            c: 'correct',
+        },
+        correctAnswer: 'c',
+    },
+    {
+        question: 'Question 2',
+        answers: {
+            a: 'honolulu',
+            b: 'slavery',
+            c: 'correct',
+        },
+        correctAnswer: 'c',
+    },
+    {
+        question: 'Question 3',
+        answers: {
+            a: 'honolulu',
+            b: 'slavery',
+            c: 'correct',
+        },
+        correctAnswer: 'c',
+    },
+
+]
+
 
 // Display start screen with start button
 
@@ -15,3 +46,4 @@ countdownRunning = false;
 // If user selects correct answer, increment wins, show congrats screen for 5 seconds, show next question
 // If countdown finishes, lose.
 
+console.log(questions[0]);
