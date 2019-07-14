@@ -5,12 +5,6 @@ var secondsLeft = 30;
 
 // display elements
 var timerDisplay = $('#timerDisplay');
-var option1 = $('#option-1');
-var option2 = $('#option-2');
-var option3 = $('#option-3');
-var option4 = $('#option-4');
-var questionText = $('#question');
-
 
 var questions = [{
         question: 'Question 1',
@@ -53,12 +47,9 @@ function questionTimer() {
         var timer = setInterval(function () {
             // reduce seconds left by 1
             secondsLeft--;
-
             // Display to user
             timerDisplay.text(secondsLeft);
 
-
-            console.log(secondsLeft);
             if (secondsLeft == 0) {
                 // Stop timer
                 clearInterval(timer);
@@ -71,14 +62,36 @@ function questionTimer() {
 
 }
 
-function displayQuestion() {
+function displayQuestion(qIndex) {
+    var playArea = $('#playArea');
+    // Array needed for loop to convert index to option value
+    var optionConverterArray = ['a', 'b', 'c', 'd'];
 
-    questionText.text(questions[0].question)
-    option1.text(questions[0].answers['a']);
-    option2.text(questions[0].answers['b']);
-    option3.text(questions[0].answers['c']);
-    option4.text(questions[0].answers['d']);
+    // Create question
+    questionText = $('<p>');
+    questionText.attr('id', 'question');
+    // Display to user
+    questionText.text(questions[parseInt(qIndex)].question);
 
+    // Append question to play area
+    playArea.append(questionText);
+
+    // Loop to Create Option buttons
+    for (var i = 0; i < optionConverterArray.length; i++) {
+        // Create button
+        var option = $('<button>');
+        console.log('index'+i+'converter'+optionConverterArray[i]);
+        // Display option text for user by accessing element in questions object using converter array
+        option.text(questions[qIndex].answers[optionConverterArray[i]]);
+        // Build Button element
+        option.addClass('btn btn-outline-primary btn-lg btn-block');
+        option.attr('type', 'button');
+        // Build loop/option specific attributes
+        option.attr('data-optionValue', optionConverterArray[i]);
+        option.attr('id', 'option-' + optionConverterArray[i]);
+        // Append button to play area
+        playArea.append(option);
+    }
 }
 
 // Display start screen with start button
@@ -95,5 +108,5 @@ function displayQuestion() {
 
 console.log(questions[0]);
 
-displayQuestion();
-questionTimer();
+displayQuestion(0);
+questionTimer(0);
