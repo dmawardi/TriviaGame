@@ -6,6 +6,9 @@ var secondsLeft = 30;
 // display elements
 var timerDisplay = $('#timerDisplay');
 
+var loseGifs = ['loseImg1.gif', 'loseImg2.gif', 'loseImg3.gif', 'loseImg4.gif', 'loseImg5.gif', 'loseImg6.gif'];
+var winGifs = ['winImg1.gif', 'winImg2.gif', 'winImg3.gif', 'winImg4.gif', 'winImg5.gif', 'winImg6.gif'];
+
 var questions = [{
         question: 'Question 1',
         answers: {
@@ -54,6 +57,9 @@ function questionTimer() {
                 // Stop timer
                 clearInterval(timer);
                 console.log('timer cleared');
+                countdownRunning = false;
+
+                displayWinLoss('timesUp');
             }
         }, 1000);
 
@@ -61,6 +67,64 @@ function questionTimer() {
     }
 
 }
+
+function displayWinLoss(winOrLose) {
+    var playArea = $('#playArea');
+
+    // Clear play area
+    playArea.empty();
+    // Create text section
+    var message = $('<p>');
+    var image = $('<img>');
+
+    if (winOrLose === 'win') {
+        // Increment Wins
+        wins++;
+        // Display to user
+        message.text('you Win');
+        // Customize win image
+        image.addClass('rounded mx-auto d-block');
+        image.attr('alt', 'win!'); {
+            /* Generate a random index from winGifs array and apply to image */ }
+        image.attr('src', 'assets/images/winImg1.gif');
+
+        // Code for handling loss event
+    } else if (winOrLose === 'lose') {
+        console.log('you Lose');
+
+        // Increment losses
+        losses++;
+        // Display to user
+        message.text('you Lose');
+        // Customize win image
+        image.addClass('rounded mx-auto d-block');
+        image.attr('alt', 'lose!'); {
+            /* Generate a random index from winGifs array and apply to image */ }
+        image.attr('src', loseGifs[Math.floor(Math.random() * winGifs.length)]);
+
+        // Else, Display times up
+    } else if (winOrLose === 'timesUp') {
+        console.log('you Lose. Because times up');
+
+        // Increment losses
+        losses++;
+
+        // Display to user
+        message.text('Times Up!');
+
+        // Customize win image
+        image.addClass('rounded mx-auto d-block');
+        image.attr('alt', 'Times Up!'); {
+            /* Generate a random index from winGifs array and apply to image */ }
+        image.attr('src', 'assets/images/timesUpImg.gif');
+    }
+
+    playArea.append(message);
+    playArea.append(image);
+
+}
+
+
 
 function displayQuestion(qIndex) {
     var playArea = $('#playArea');
@@ -80,7 +144,7 @@ function displayQuestion(qIndex) {
     for (var i = 0; i < optionConverterArray.length; i++) {
         // Create button
         var option = $('<button>');
-        console.log('index'+i+'converter'+optionConverterArray[i]);
+        console.log('index' + i + 'converter' + optionConverterArray[i]);
         // Display option text for user by accessing element in questions object using converter array
         option.text(questions[qIndex].answers[optionConverterArray[i]]);
         // Build Button element
@@ -95,7 +159,7 @@ function displayQuestion(qIndex) {
 }
 
 // Event handler for buttons within playArea id
-$('#playArea').on('click', 'button', function(){
+$('#playArea').on('click', 'button', function () {
 
     console.log(this);
 
@@ -115,5 +179,6 @@ $('#playArea').on('click', 'button', function(){
 
 console.log(questions[0]);
 
-displayQuestion(0);
+// displayQuestion(0);
+displayWinLoss('win');
 questionTimer(0);
