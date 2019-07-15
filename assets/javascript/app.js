@@ -3,6 +3,7 @@ var losses = 0;
 countdownRunning = false;
 var secondsLeft = 30;
 var currentQuestion;
+var timer;
 
 // display elements
 var timerDisplay = $('#timerDisplay');
@@ -43,12 +44,19 @@ var questions = [{
 
 ]
 
+function stopQuestionTimer() {
+    // Stop timer
+    clearInterval(timer);
+    console.log('timer cleared');
+    countdownRunning = false;
+}
+
 function questionTimer() {
 
     if (!countdownRunning) {
         countdownRunning = true;
 
-        var timer = setInterval(function () {
+        timer = setInterval(function () {
             // reduce seconds left by 1
             secondsLeft--;
             // Display to user
@@ -191,10 +199,19 @@ $('#playArea').on('click', 'button', function () {
     var pressedOption = $(this).attr('data-optionValue');
 
     console.log(pressedOption);
-    console.log('correct answer:'+questions[currentQuestion].correctAnswer);
+    console.log('correct answer:' + questions[currentQuestion].correctAnswer);
+
+    stopQuestionTimer();
 
     if (pressedOption === questions[currentQuestion].correctAnswer) {
-        console.log('answer is correct!')
+        wins++;
+        console.log('answer is correct! wins: '+wins);
+        displayWinLoss('win');
+
+    } else {
+        losses++;
+        console.log('you lose. Losses: '+losses);
+        displayWinLoss('lose');
     }
 
 });
@@ -205,7 +222,7 @@ $('#playArea').on('click', 'button', function () {
 displayStartScreen();
 
 // User presses start button to begin game
-$('#startBtn').on('click', function(){
+$('#startBtn').on('click', function () {
     wins = 0;
     losses = 0;
     timerDisplay.text(secondsLeft);
