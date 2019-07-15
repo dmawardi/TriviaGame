@@ -2,6 +2,7 @@ var wins = 0;
 var losses = 0;
 countdownRunning = false;
 var secondsLeft = 30;
+var currentQuestion;
 
 // display elements
 var timerDisplay = $('#timerDisplay');
@@ -154,6 +155,8 @@ function displayStartScreen() {
 
 function displayQuestion(qIndex) {
     var playArea = $('#playArea');
+    // Clear play area
+    playArea.empty();
     // Array needed for loop to convert index to option value
     var optionConverterArray = ['a', 'b', 'c', 'd'];
 
@@ -185,17 +188,35 @@ function displayQuestion(qIndex) {
 
 // Event handler for buttons within playArea id
 $('#playArea').on('click', 'button', function () {
+    var pressedOption = $(this).attr('data-optionValue');
 
-    console.log(this);
+    console.log(pressedOption);
+    console.log('correct answer:'+questions[currentQuestion].correctAnswer);
+
+    if (pressedOption === questions[currentQuestion].correctAnswer) {
+        console.log('answer is correct!')
+    }
 
 });
 
+
+
 // Display start screen with start button
+displayStartScreen();
 
 // User presses start button to begin game
+$('#startBtn').on('click', function(){
+    wins = 0;
+    losses = 0;
+    timerDisplay.text(secondsLeft);
 
-// Card shown with questions and answers. 
-// Unpack data, display answers and create data attributes. Start countdown timer. 
+    // Card shown with questions and answers. 
+    displayQuestion(0);
+    currentQuestion = 0;
+    // Start countdown timer
+    questionTimer();
+
+});
 
 // if user clicks an answer, check if it's correct
 // Check data value of clicked element and compare to correct answer
@@ -205,5 +226,4 @@ $('#playArea').on('click', 'button', function () {
 
 // displayQuestion(0);
 // displayWinLoss('win');
-displayStartScreen();
-questionTimer(0);
+// questionTimer(0);
