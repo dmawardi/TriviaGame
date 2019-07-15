@@ -85,8 +85,9 @@ function displayWinLoss(winOrLose) {
         // Customize win image
         image.addClass('rounded mx-auto d-block');
         image.attr('alt', 'win!'); {
-            /* Generate a random index from winGifs array and apply to image */ }
-        image.attr('src', 'assets/images/winImg1.gif');
+            /* Generate a random index from winGifs array and apply to image */
+        }
+        image.attr('src', 'assets/images/' + winGifs[Math.floor(Math.random() * winGifs.length)]);
 
         // Code for handling loss event
     } else if (winOrLose === 'lose') {
@@ -99,8 +100,9 @@ function displayWinLoss(winOrLose) {
         // Customize win image
         image.addClass('rounded mx-auto d-block');
         image.attr('alt', 'lose!'); {
-            /* Generate a random index from winGifs array and apply to image */ }
-        image.attr('src', loseGifs[Math.floor(Math.random() * winGifs.length)]);
+            /* Generate a random index from winGifs array and apply to image */
+        }
+        image.attr('src', 'assets/images/' + loseGifs[Math.floor(Math.random() * loseGifs.length)]);
 
         // Else, Display times up
     } else if (winOrLose === 'timesUp') {
@@ -115,16 +117,40 @@ function displayWinLoss(winOrLose) {
         // Customize win image
         image.addClass('rounded mx-auto d-block');
         image.attr('alt', 'Times Up!'); {
-            /* Generate a random index from winGifs array and apply to image */ }
+            /* Generate a random index from winGifs array and apply to image */
+        }
         image.attr('src', 'assets/images/timesUpImg.gif');
     }
-
+    // Display to user
     playArea.append(message);
     playArea.append(image);
 
 }
 
+function displayStartScreen() {
+    var playArea = $('#playArea');
+    // Clear play area
+    playArea.empty();
 
+    // Create text section
+    var message = $('<p>');
+
+    message.text('Press the Start button below to begin!');
+
+    // Create Start Button
+    var start = $('<button>');
+    // Display option text for user by accessing element in questions object using converter array
+    start.text('Start');
+    // Build Button element
+    start.addClass('btn btn-outline-primary btn-lg btn-block');
+    start.attr('type', 'button');
+    start.attr('id', 'startBtn');
+
+    // Display to user
+    playArea.append(message);
+    playArea.append(start);
+
+}
 
 function displayQuestion(qIndex) {
     var playArea = $('#playArea');
@@ -144,7 +170,6 @@ function displayQuestion(qIndex) {
     for (var i = 0; i < optionConverterArray.length; i++) {
         // Create button
         var option = $('<button>');
-        console.log('index' + i + 'converter' + optionConverterArray[i]);
         // Display option text for user by accessing element in questions object using converter array
         option.text(questions[qIndex].answers[optionConverterArray[i]]);
         // Build Button element
@@ -177,8 +202,8 @@ $('#playArea').on('click', 'button', function () {
 // If user selects correct answer, increment wins, show congrats screen for 5 seconds, show next question
 // If countdown finishes, lose.
 
-console.log(questions[0]);
 
 // displayQuestion(0);
-displayWinLoss('win');
+// displayWinLoss('win');
+displayStartScreen();
 questionTimer(0);
