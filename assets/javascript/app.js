@@ -183,8 +183,45 @@ function displayStartScreen() {
 
 }
 
+function displayScoreScreen() {
+    var playArea = $('#playArea');
+    // Clear play area
+    playArea.empty();
+
+    // Create text section
+    var message = $('<p>');
+    var scoreText = $('<p>');
+    // Calculate % score from total
+    var score = (wins / (wins+losses))*100;
+
+    message.text('Game Complete!');
+
+    // If score is 
+    if (score >= 60) {
+        scoreText.text('Congrats! Your score is: '+score);
+
+    }
+    else {
+        scoreText.text('Sorry! You have lost with a score of: '+score);
+    }
+
+    // Create Start Button
+    var restart = $('<button>');
+    // Display option text for user by accessing element in questions object using converter array
+    restart.text('Restart Game');
+    // Build Button element
+    restart.addClass('btn btn-outline-primary btn-lg btn-block');
+    restart.attr('type', 'button');
+    restart.attr('id', 'startBtn');
+
+    // Display to user
+    playArea.append(message);
+    playArea.append(scoreText);
+    playArea.append(restart);
+}
+
 function gameCompleteCheck() {
-    if (wins + losses < 12) {
+    if (wins + losses < 10) {
         // Generate random question to display
         currentQuestion = Math.floor(Math.random() * questions.length);
         console.log('Below 12 games. Next: ' + currentQuestion);
@@ -192,23 +229,8 @@ function gameCompleteCheck() {
     } else {
         console.log('Game complete')
         // Display Score Screen
-
+        displayScoreScreen();
     }
-    
-    
-    
-    // setTimeout(function () {
-    //     if (wins + losses < 12) {
-    //         // Generate random question to display
-    //         currentQuestion = Math.floor(Math.random() * questions.length);
-    //         console.log('Below 12 games. Next: ' + currentQuestion);
-    //         displayQuestion(currentQuestion);
-    //     } else {
-    //         console.log('Game complete')
-    //         // Display Score Screen
-
-    //     }
-    // }, 5000);
 
 }
 
@@ -250,9 +272,6 @@ function displayQuestion(qIndex) {
     }
 }
 
-// Need to build second timer for win loss
-
-
 // Event handler for buttons within playArea id
 $('#playArea').on('click', 'button', function () {
     var pressedOption = $(this).attr('data-optionValue');
@@ -273,11 +292,8 @@ $('#playArea').on('click', 'button', function () {
     } else {
         displayWinLoss('lose');
         console.log('you lose. Losses: ' + losses);
-        // setTimeout(displayQuestion(1), 5000);
         // Checks if game is complete and if not, displays new question
     }
-
-    // setTimeout(displayQuestion(1), 5000);
 
 });
 
