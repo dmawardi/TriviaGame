@@ -80,12 +80,13 @@ function questionTimer() {
 // Displays following question if games not finished or score if finished
 function gratsTimeOut() {
     var gratsSecsLeft = 5;
+    timerDisplay.text('Gratz:' + gratsSecsLeft);
 
     gratsTimer = setInterval(function () {
         // reduce seconds left by 1
         gratsSecsLeft--;
         // Display to user
-        timerDisplay.text('Gratz:' + secondsLeft);
+        timerDisplay.text('Gratz:' + gratsSecsLeft);
 
         console.log(gratsSecsLeft);
         if (gratsSecsLeft == 0) {
@@ -183,18 +184,31 @@ function displayStartScreen() {
 }
 
 function gameCompleteCheck() {
-    setTimeout(function () {
-        if (wins + losses < 12) {
-            // Generate random question to display
-            currentQuestion = Math.floor(Math.random() * questions.length);
-            console.log('Below 12 games. Next: ' + currentQuestion);
-            displayQuestion(currentQuestion);
-        } else {
-            console.log('Game complete')
-            // Display Score Screen
+    if (wins + losses < 12) {
+        // Generate random question to display
+        currentQuestion = Math.floor(Math.random() * questions.length);
+        console.log('Below 12 games. Next: ' + currentQuestion);
+        displayQuestion(currentQuestion);
+    } else {
+        console.log('Game complete')
+        // Display Score Screen
 
-        }
-    }, 5000);
+    }
+    
+    
+    
+    // setTimeout(function () {
+    //     if (wins + losses < 12) {
+    //         // Generate random question to display
+    //         currentQuestion = Math.floor(Math.random() * questions.length);
+    //         console.log('Below 12 games. Next: ' + currentQuestion);
+    //         displayQuestion(currentQuestion);
+    //     } else {
+    //         console.log('Game complete')
+    //         // Display Score Screen
+
+    //     }
+    // }, 5000);
 
 }
 
@@ -277,11 +291,10 @@ $('#startBtn').on('click', function () {
     losses = 0;
     timerDisplay.text(secondsLeft);
 
-    // Card shown with questions and answers. 
+    // Card shown with questions and answers. Starts timer 
     displayQuestion(0);
     currentQuestion = 0;
-    // Start countdown timer
-    questionTimer();
+  
 
 });
 
