@@ -192,17 +192,16 @@ function displayScoreScreen() {
     var message = $('<p>');
     var scoreText = $('<p>');
     // Calculate % score from total
-    var score = (wins / (wins+losses))*100;
+    var score = (wins / (wins + losses)) * 100;
 
     message.text('Game Complete!');
 
     // If score is 
     if (score >= 60) {
-        scoreText.text('Congrats! Your score is: '+score);
+        scoreText.text('Congrats! Your score is: ' + score);
 
-    }
-    else {
-        scoreText.text('Sorry! You have lost with a score of: '+score);
+    } else {
+        scoreText.text('Sorry! You have lost with a score of: ' + score);
     }
 
     // Create Start Button
@@ -274,26 +273,39 @@ function displayQuestion(qIndex) {
 
 // Event handler for buttons within playArea id
 $('#playArea').on('click', 'button', function () {
-    var pressedOption = $(this).attr('data-optionValue');
+    // Exception for Start button
+    if ($(this).attr('id') !== 'startBtn') {
+        var pressedOption = $(this).attr('data-optionValue');
 
-    console.log(pressedOption);
-    console.log('correct answer:' + questions[currentQuestion].correctAnswer);
-
-
-    stopQuestionTimer();
-
-    if (pressedOption === questions[currentQuestion].correctAnswer) {
-        displayWinLoss('win');
-        console.log('answer is correct! wins: ' + wins);
-        // Checks if game is complete and if not, displays new question
+        console.log(pressedOption);
+        console.log('correct answer:' + questions[currentQuestion].correctAnswer);
 
 
+        stopQuestionTimer();
 
-    } else {
-        displayWinLoss('lose');
-        console.log('you lose. Losses: ' + losses);
-        // Checks if game is complete and if not, displays new question
+        if (pressedOption === questions[currentQuestion].correctAnswer) {
+            displayWinLoss('win');
+            console.log('answer is correct! wins: ' + wins);
+            // Checks if game is complete and if not, displays new question
+
+
+
+        } else {
+            displayWinLoss('lose');
+            console.log('you lose. Losses: ' + losses);
+            // Checks if game is complete and if not, displays new question
+        }
+    } else if ($(this).attr('id') == 'startBtn') {
+        wins = 0;
+        losses = 0;
+        timerDisplay.text(secondsLeft);
+    
+        // Card shown with questions and answers. Starts timer 
+        displayQuestion(0);
+        currentQuestion = 0;
     }
+
+
 
 });
 
@@ -310,7 +322,7 @@ $('#startBtn').on('click', function () {
     // Card shown with questions and answers. Starts timer 
     displayQuestion(0);
     currentQuestion = 0;
-  
+
 
 });
 
