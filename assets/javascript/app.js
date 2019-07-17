@@ -11,17 +11,19 @@ var completedQuestions = [];
 var timerDisplay = $('#timerDisplay');
 var timeText = $('#timeText');
 
+// list of images to display to user for win/loss situations
 var loseGifs = ['loseImg1.gif', 'loseImg2.gif', 'loseImg3.gif', 'loseImg4.gif', 'loseImg5.gif', 'loseImg6.gif'];
 var winGifs = ['winImg1.gif', 'winImg2.gif', 'winImg3.gif', 'winImg4.gif', 'winImg5.gif', 'winImg6.gif'];
 
 
-
+// Clears the interval for the question timer
 function stopQuestionTimer() {
     // Stop timer
     clearInterval(qTimer);
     countdownRunning = false;
 }
 
+// Starts timer for question. decrements once a second and triggers times up displayWInLoss if timer hits 0
 function questionTimer() {
 
     if (!countdownRunning) {
@@ -47,9 +49,11 @@ function questionTimer() {
 }
 
 // Times the display of win/loss/timesup
-// Displays following question if games not finished or score if finished
+// Displays following question if game is not finished or score screen if finished
 function gratsTimeOut() {
+    // Set timer to 5 to start
     var gratsSecsLeft = 5;
+    // Display seconds left to user
     timerDisplay.text(gratsSecsLeft);
 
     gratsTimer = setInterval(function () {
@@ -58,6 +62,7 @@ function gratsTimeOut() {
         // Display to user
         timerDisplay.text(gratsSecsLeft);
 
+        // If timer reaches 0
         if (gratsSecsLeft == 0) {
             // Stop timer
             clearInterval(gratsTimer);
@@ -68,29 +73,31 @@ function gratsTimeOut() {
     }, 1000);
 }
 
+// Displays win, loss or if times up animation. Then triggers grats timeout at end
 function displayWinLoss(winOrLose) {
     var playArea = $('#playArea');
 
-    // Clear play area
+    // Clear play area & hide time remaining text
     playArea.empty();
     timeText.hide();
-    // Create text section
+
+    // Create section elements
     var message = $('<p>');
     var image = $('<img>');
     image.addClass('rounded mx-auto d-block');
 
+    // If win
     if (winOrLose === 'win') {
         // Increment Wins
         wins++;
         // Display to user
         message.text('you Win');
         // Customize win image
-        image.attr('alt', 'win!'); {
-            /* Generate a random index from winGifs array and apply to image */
-        }
+        image.attr('alt', 'win!');
+        // Generate a random index from winGifs array and apply to image
         image.attr('src', 'assets/images/' + winGifs[Math.floor(Math.random() * winGifs.length)]);
 
-        // Code for handling loss event
+        // If loss detected
     } else if (winOrLose === 'lose') {
 
         // Increment losses
@@ -103,7 +110,7 @@ function displayWinLoss(winOrLose) {
         }
         image.attr('src', 'assets/images/' + loseGifs[Math.floor(Math.random() * loseGifs.length)]);
 
-        // Else, Display times up
+        // Else, if time's up
     } else if (winOrLose === 'timesUp') {
 
         // Increment losses
@@ -123,10 +130,12 @@ function displayWinLoss(winOrLose) {
     playArea.append(message);
     playArea.append(image);
 
+    // Timeout 5 seconds then determine if game complete or to continue
     gratsTimeOut();
 
 }
 
+// Display start elements and Start button
 function displayStartScreen() {
     var playArea = $('#playArea');
     // Clear play area
@@ -152,6 +161,7 @@ function displayStartScreen() {
 
 }
 
+// Display calculated Score and restart screen
 function displayScoreScreen() {
     var playArea = $('#playArea');
     // Clear play area
@@ -169,6 +179,7 @@ function displayScoreScreen() {
     if (score >= 60) {
         scoreText.text('Congrats! Your score is: ' + score);
 
+    // Else if score is less
     } else {
         scoreText.text('Sorry! You have lost with a score of: ' + score);
     }
@@ -188,6 +199,7 @@ function displayScoreScreen() {
     playArea.append(restart);
 }
 
+// Loop looking for random value until non-repeat value found
 function randomNotRepeat() {
     // Satisfy loop condition by assigning randomquestion value in array
     var randomQuestion = completedQuestions[0];
@@ -199,24 +211,26 @@ function randomNotRepeat() {
     return randomQuestion
 }
 
+// Deteremine if game is still going
 function gameCompleteCheck() {
+    // Are total games at max? (10). If yes, 
     if (wins + losses < 10) {
         // Show timer again
         timeText.show();
-
-
         // Generate random question to display
         currentQuestion = randomNotRepeat();
         // Add to list of completed questions
         completedQuestions.push(currentQuestion);
+        // Display to user
         displayQuestion(currentQuestion);
     } else {
-        // Display Score Screen
+        // Display Score Screen with restart button
         displayScoreScreen();
     }
 
 }
 
+// Display question and selection options
 function displayQuestion(qIndex) {
     var playArea = $('#playArea');
     // Clear play area
@@ -255,7 +269,7 @@ function displayQuestion(qIndex) {
     }
 }
 
-// Event handler for buttons within playArea id
+// Event handler for buttons within playArea
 $('#playArea').on('click', 'button', function () {
     // If option buttons clicked
     if ($(this).attr('id') !== 'startBtn') {
@@ -278,6 +292,8 @@ $('#playArea').on('click', 'button', function () {
         wins = 0;
         losses = 0;
         timerDisplay.text(secondsLeft);
+        // Reset Completed Questions
+        completedQuestions = [];
         // User presses start button to begin game
         // Generate initial random question. 
         currentQuestion = Math.floor(Math.random() * questions.length);
@@ -291,4 +307,3 @@ $('#playArea').on('click', 'button', function () {
 // Display start screen with start button
 // Start of game is handled by event handler above
 displayStartScreen();
-

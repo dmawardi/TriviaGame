@@ -9,12 +9,20 @@ body {
 
 }
 
+/* Play Area elements */
+.jumbotron {
+    background-color: black;
+    color: rgb(253,243,171)
+}
+
+
 #question {
     margin-bottom: 50px;
 
 }
 
-.jumbotron {
-    background-color: black;
-    color: rgb(253,243,171)
+
+
+#startBtn {
+    padding: 20px 0;
 }
