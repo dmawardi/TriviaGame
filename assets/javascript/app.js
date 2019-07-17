@@ -19,7 +19,6 @@ var winGifs = ['winImg1.gif', 'winImg2.gif', 'winImg3.gif', 'winImg4.gif', 'winI
 function stopQuestionTimer() {
     // Stop timer
     clearInterval(qTimer);
-    console.log('timer cleared');
     countdownRunning = false;
 }
 
@@ -51,15 +50,14 @@ function questionTimer() {
 // Displays following question if games not finished or score if finished
 function gratsTimeOut() {
     var gratsSecsLeft = 5;
-    timerDisplay.text('Gratz:' + gratsSecsLeft);
+    timerDisplay.text(gratsSecsLeft);
 
     gratsTimer = setInterval(function () {
         // reduce seconds left by 1
         gratsSecsLeft--;
         // Display to user
-        timerDisplay.text('Gratz:' + gratsSecsLeft);
+        timerDisplay.text(gratsSecsLeft);
 
-        console.log(gratsSecsLeft);
         if (gratsSecsLeft == 0) {
             // Stop timer
             clearInterval(gratsTimer);
@@ -94,7 +92,6 @@ function displayWinLoss(winOrLose) {
 
         // Code for handling loss event
     } else if (winOrLose === 'lose') {
-        console.log('you Lose');
 
         // Increment losses
         losses++;
@@ -108,7 +105,6 @@ function displayWinLoss(winOrLose) {
 
         // Else, Display times up
     } else if (winOrLose === 'timesUp') {
-        console.log('you Lose. Because times up');
 
         // Increment losses
         losses++;
@@ -197,11 +193,9 @@ function randomNotRepeat() {
     var randomQuestion = completedQuestions[0];
 
     // Continue to generate random number until
-    console.log('starting search for random');
     while (completedQuestions.includes(randomQuestion)) {
         randomQuestion = Math.floor(Math.random() * questions.length);
     }
-    console.log('Completed search for random');
     return randomQuestion
 }
 
@@ -215,10 +209,8 @@ function gameCompleteCheck() {
         currentQuestion = randomNotRepeat();
         // Add to list of completed questions
         completedQuestions.push(currentQuestion);
-        console.log('Below 12 games. Next: ' + currentQuestion);
         displayQuestion(currentQuestion);
     } else {
-        console.log('Game complete')
         // Display Score Screen
         displayScoreScreen();
     }
@@ -269,20 +261,14 @@ $('#playArea').on('click', 'button', function () {
     if ($(this).attr('id') !== 'startBtn') {
         var pressedOption = $(this).attr('data-optionValue');
 
-        console.log(pressedOption);
-        console.log('correct answer:' + questions[currentQuestion].correctAnswer);
-
-
         stopQuestionTimer();
 
         if (pressedOption === questions[currentQuestion].correctAnswer) {
             displayWinLoss('win');
-            console.log('answer is correct! wins: ' + wins);
             // Checks if game is complete and if not, displays new question
 
         } else {
             displayWinLoss('lose');
-            console.log('you lose. Losses: ' + losses);
             // Checks if game is complete and if not, displays new question
         }
 
@@ -303,6 +289,6 @@ $('#playArea').on('click', 'button', function () {
 
 // Start of Arguments
 // Display start screen with start button
+// Start of game is handled by event handler above
 displayStartScreen();
 
-// Start of game is handled by event handler above
