@@ -12,38 +12,7 @@ var timerDisplay = $('#timerDisplay');
 var loseGifs = ['loseImg1.gif', 'loseImg2.gif', 'loseImg3.gif', 'loseImg4.gif', 'loseImg5.gif', 'loseImg6.gif'];
 var winGifs = ['winImg1.gif', 'winImg2.gif', 'winImg3.gif', 'winImg4.gif', 'winImg5.gif', 'winImg6.gif'];
 
-var questions = [{
-        question: 'Question 1',
-        answers: {
-            a: 'honolulu',
-            b: 'slavery',
-            c: 'correct',
-            d: 'bahlul'
-        },
-        correctAnswer: 'c',
-    },
-    {
-        question: 'Question 2',
-        answers: {
-            a: 'honolulu',
-            b: 'slavery',
-            c: 'correct',
-            d: 'kullie'
-        },
-        correctAnswer: 'c',
-    },
-    {
-        question: 'Question 3',
-        answers: {
-            a: 'honolulu',
-            b: 'slavery',
-            c: 'correct',
-            d: 'bully'
-        },
-        correctAnswer: 'c',
-    },
 
-]
 
 function stopQuestionTimer() {
     // Stop timer
@@ -288,8 +257,6 @@ $('#playArea').on('click', 'button', function () {
             console.log('answer is correct! wins: ' + wins);
             // Checks if game is complete and if not, displays new question
 
-
-
         } else {
             displayWinLoss('lose');
             console.log('you lose. Losses: ' + losses);
@@ -299,34 +266,16 @@ $('#playArea').on('click', 'button', function () {
         wins = 0;
         losses = 0;
         timerDisplay.text(secondsLeft);
-    
+        // User presses start button to begin game
         // Card shown with questions and answers. Starts timer 
         displayQuestion(0);
         currentQuestion = 0;
     }
 
-
-
 });
 
-
+// Start of Arguments
 // Display start screen with start button
 displayStartScreen();
 
-// User presses start button to begin game
-$('#startBtn').on('click', function () {
-    wins = 0;
-    losses = 0;
-    timerDisplay.text(secondsLeft);
-
-    // Card shown with questions and answers. Starts timer 
-    displayQuestion(0);
-    currentQuestion = 0;
-
-
-});
-
-// if user clicks an answer, check if it's correct
-// Check data value of clicked element and compare to correct answer
-// If user selects correct answer, increment wins, show congrats screen for 5 seconds, show next question
-// If countdown finishes, lose.
+// Start of game is handled by event handler above
