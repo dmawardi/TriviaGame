@@ -5,6 +5,7 @@ var secondsLeft = 30;
 var currentQuestion;
 var qTimer;
 var gratsTimer;
+var completedQuestions = [];
 
 // display elements
 var timerDisplay = $('#timerDisplay');
@@ -191,12 +192,29 @@ function displayScoreScreen() {
     playArea.append(restart);
 }
 
+function randomNotRepeat() {
+    // Satisfy loop condition by assigning randomquestion value in array
+    var randomQuestion = completedQuestions[0];
+
+    // Continue to generate random number until
+    console.log('starting search for random');
+    while (completedQuestions.includes(randomQuestion)) {
+        randomQuestion = Math.floor(Math.random() * questions.length);
+    }
+    console.log('Completed search for random');
+    return randomQuestion
+}
+
 function gameCompleteCheck() {
     if (wins + losses < 10) {
         // Show timer again
         timeText.show();
+
+
         // Generate random question to display
-        currentQuestion = Math.floor(Math.random() * questions.length);
+        currentQuestion = randomNotRepeat();
+        // Add to list of completed questions
+        completedQuestions.push(currentQuestion);
         console.log('Below 12 games. Next: ' + currentQuestion);
         displayQuestion(currentQuestion);
     } else {
@@ -247,7 +265,7 @@ function displayQuestion(qIndex) {
 
 // Event handler for buttons within playArea id
 $('#playArea').on('click', 'button', function () {
-    // Exception for Start button
+    // If option buttons clicked
     if ($(this).attr('id') !== 'startBtn') {
         var pressedOption = $(this).attr('data-optionValue');
 
@@ -267,14 +285,18 @@ $('#playArea').on('click', 'button', function () {
             console.log('you lose. Losses: ' + losses);
             // Checks if game is complete and if not, displays new question
         }
+
+        // Start button clicked
     } else if ($(this).attr('id') == 'startBtn') {
+        // Reset stats
         wins = 0;
         losses = 0;
         timerDisplay.text(secondsLeft);
         // User presses start button to begin game
-        // Card shown with questions and answers. Starts timer 
-        displayQuestion(0);
-        currentQuestion = 0;
+        // Generate initial random question. 
+        currentQuestion = Math.floor(Math.random() * questions.length);
+        completedQuestions.push(currentQuestion);
+        displayQuestion(currentQuestion);
     }
 
 });
