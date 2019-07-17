@@ -8,6 +8,7 @@ var gratsTimer;
 
 // display elements
 var timerDisplay = $('#timerDisplay');
+var timeText = $('#timeText');
 
 var loseGifs = ['loseImg1.gif', 'loseImg2.gif', 'loseImg3.gif', 'loseImg4.gif', 'loseImg5.gif', 'loseImg6.gif'];
 var winGifs = ['winImg1.gif', 'winImg2.gif', 'winImg3.gif', 'winImg4.gif', 'winImg5.gif', 'winImg6.gif'];
@@ -73,6 +74,7 @@ function displayWinLoss(winOrLose) {
 
     // Clear play area
     playArea.empty();
+    timeText.hide();
     // Create text section
     var message = $('<p>');
     var image = $('<img>');
@@ -123,6 +125,7 @@ function displayWinLoss(winOrLose) {
     // Display to user
     playArea.append(message);
     playArea.append(image);
+
     gratsTimeOut();
 
 }
@@ -190,6 +193,8 @@ function displayScoreScreen() {
 
 function gameCompleteCheck() {
     if (wins + losses < 10) {
+        // Show timer again
+        timeText.show();
         // Generate random question to display
         currentQuestion = Math.floor(Math.random() * questions.length);
         console.log('Below 12 games. Next: ' + currentQuestion);

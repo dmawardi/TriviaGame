@@ -1,11 +1,20 @@
 body {
     text-align: center;
+    background: url(../images/bgImage.jpg);
+    background-repeat: round;
 }
 
 .mainArea {
     margin-top: 50px;
+
 }
 
 #question {
     margin-bottom: 50px;
+
+}
+
+.jumbotron {
+    background-color: black;
+    color: rgb(253,243,171)
 }
