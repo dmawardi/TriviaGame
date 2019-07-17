@@ -91,7 +91,7 @@ function displayWinLoss(winOrLose) {
         // Increment Wins
         wins++;
         // Display to user
-        message.text('you Win');
+        message.text("That's correct!");
         // Customize win image
         image.attr('alt', 'win!');
         // Generate a random index from winGifs array and apply to image
@@ -103,7 +103,7 @@ function displayWinLoss(winOrLose) {
         // Increment losses
         losses++;
         // Display to user
-        message.text('you Lose');
+        message.text('That is incorrect!');
         // Customize win image
         image.attr('alt', 'lose!'); {
             /* Generate a random index from winGifs array and apply to image */

@@ -9,10 +9,15 @@ body {
 
 }
 
+#playArea {
+    font-family: 'Ultra', serif;
+    font-family: 'Lora', serif;
+}
+
 /* Play Area elements */
 .jumbotron {
     background-color: black;
-    color: rgb(253,243,171)
+    color: rgb(253, 243, 171);
 }
 
 
