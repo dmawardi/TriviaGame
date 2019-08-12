@@ -27,7 +27,7 @@ See also the list of [contributors](https://github.com/dmawardi/project/contribu
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
+This project is licensed under the MIT License - see the [LICENSE.md](./LICENSE.md) file for details
 
 ## Acknowledgments
 
