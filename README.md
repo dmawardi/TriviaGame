@@ -1,10 +1,10 @@
 # It's Always Sunny In Philadelphia Trivia Game
 Monash Web App Development Week 5: Trivia Game
 
-### Goal: 
+#### Goal: 
 To build a themed trivia game that asks the user questions and provides them a score at the end.
 
-### Solution:
+#### Solution:
 Asks the user questions, keeping tally of score.  After each question, a context-specific GIF is shown to the user for a brief time.  At the end, the score is displayed with an opportunity to restart the game.
 
 
